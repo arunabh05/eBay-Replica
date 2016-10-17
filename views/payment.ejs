@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Payment	 | eBay</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/payment.js"></script>
+</head>
+<body ng-app="EbayApp" ng-controller="PaymentController">
+	<img class="logo" src="/images/EBay_logo.png" height="50" width="100"
+		alt="My_Logo">
+<br>
+  <div class="body container"><br><br>
+  <div class=col-md-4></div>
+  <div class=col-md-4>
+  <b>Amount : <%= checkoutCost %><b>
+  <div class= "form-group">
+  <br/>
+ <form ng-submit="validateCard()" method="post" class="validateCard">
+  	    <input type="text" ng-model="cardNumber" maxlength="16" autofocus="autofocus" class="form-control" placeholder ="Card Number" required><br/>
+  	    <input type="date" ng-model="expDate" class="form-control" min="2016-10-11" placeholder ="Expiration Date" required><br/>
+  	    <input type="password" ng-model="cvv" maxlength="3" class="form-control" placeholder ="CVV Number" required><br/>
+  	    <input type="submit" class="btn btn-success" value="Pay">
+  </form>	<br>
+  <div class="alert alert-danger" ng-hide="invalid_card">
+  		<strong>Invalid Card Details</strong>
+  </div>
+  <div class="alert alert-success" ng-hide="valid_card">
+  		<strong>Payment Successful</strong>
+  </div>
+  </div>
+  <div class=col-md-4></div>
+  </div>
+  </div>
+ </body>
+</html>

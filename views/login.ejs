@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sign in or Register | eBay</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+
+
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/login.js"></script>
+</head>
+<body ng-app="EbayApp">
+	<div id="header">
+		<a href="/login"> <img class="logo" src="/images/EBay_logo.png"
+			height="100" width="200" alt="My_Logo">
+		</a>
+	</div>
+	<div id="body">
+		<div class="col-md-4"></div>
+		<div ng-controller="loginRegisterController" id="loginForm"
+			class="col-md-4">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#login">Sign
+						in</a></li>
+				<li><a data-toggle="tab" href="#register">Register</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="login" class="tab-pane fade in active">
+					<br>
+					<form ng-submit="validateLogin()" method="post">
+						<div>
+							<input type="text" placeholder="Username" maxlength="25" required
+								class="form-control" ng-model="userId">
+						</div>
+						<br>
+						<div>
+							<input type="password" placeholder="Password" maxlength="25"
+								required class="form-control" ng-model="password">
+						</div>
+						<br>
+						<div>
+							<input type="submit" id="login_btn" value="Sign in"
+								class="btn btn-primary btn-block">
+						</div>
+						<br>
+						<div class="alert alert-danger" ng-hide="invalid_login">
+							<strong>Invalid Email or Password</strong>
+						</div>
+						<div>
+							<br>
+						</div>
+						<br>
+					</form>
+				</div>
+				<div id="register" class="tab-pane fade">
+					<br>
+					<form ng-submit="validateRegister()" method="post">
+						<div>
+							<input type="text" placeholder="First Name" maxlength="25"
+								required class="form-control" ng-model="fname">
+						</div>
+						<br>
+						<div>
+							<input type="text" placeholder="Last Name" maxlength="25"
+								required class="form-control" ng-model="lname">
+						</div>
+						<br>
+						<div>
+							<input type="text" placeholder="Username" maxlength="25" required
+								class="form-control" ng-model="username2">
+						</div>
+						<br>
+						<div>
+							<input type="email" placeholder="Email" maxlength="50" required
+								class="form-control" ng-model="email">
+						</div>
+						<br>
+						<div>
+							<input type="email" placeholder="Re-Enter Email" maxlength="50"
+								required class="form-control" ng-model="remail">
+						</div>
+						<br>
+						<div>
+							<input type="password" placeholder="Password" maxlength="25"
+								required class="form-control" ng-model="password2">
+						</div>
+						<br>
+						<div>
+							By Registering, you agree that you've read and accepted our User
+							Agreement, you're at least 18 years old, and you consent to our
+							Privacy Notice and receiving marketing communications from us.
+							<div>
+								<br>
+								<div>
+									<input type="submit" id="register_btn" value="Register"
+										class="btn btn-primary btn-block">
+								</div>
+								<br>
+								<div class="alert alert-danger" ng-hide="invalid_register">
+									<strong>Invalid Details</strong>
+								</div>
+								<div class="alert alert-danger" ng-hide="email_unmatch">
+									<strong>Email does not match</strong>
+								</div>
+
+								<div>
+<br>
+								</div>
+								<div ng-hide="invalid_register"><strong>Username or Email already exist</strong></div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4"></div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	<div id="footer">eBay</div>
+</body>
+</html>
