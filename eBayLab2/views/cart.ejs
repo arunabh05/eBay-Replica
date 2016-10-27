@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home | eBay</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/cart.js"></script>
+</head>
+<body ng-app="EbayApp" ng-controller="CartController">
+	<img class="logo" src="/images/EBay_logo.png" height="50" width="100"
+		alt="My_Logo">
+	<button ng-click="openCart()" style="fixed: right" type="submit"
+		id="cartBtn" class="btn btn-primary">
+		Cart <span class="glyphicon glyphicon-shopping-cart"></span>
+	</button>
+	<div id="header2">
+		<div class="dropdown" id="menu">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				Hi, <span><%= username %></span> &nbsp;<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li class="list"><a href="/Home">Home</a></li>
+				<li class="list"><form ng-submit="userProfile()" method="get">
+						<input type="submit" value="Profile" class="btn btn-block " />
+					</form></li>
+				<li class="list"><a href="/Sell">Sell</a></li>
+				<li class="list"><a href="/highestBidder">Highest Bidders</a></li>
+				<li class="list"><a href="/purchaseHistory">Purchase History</a></li>
+				<li class="list"><a href="/sellingHistory">Selling History</a></li>
+				<li class="list"><form action="logout" method="post">
+						<input type="submit" value="Logout" class="btn btn-block " />
+					</form></li>
+			</ul>
+		</div>
+	</div>
+	<br>
+	<div id="body">
+		<form ng-repeat="item in items"><div   class="container" id="product" >
+			<div ng-if="item.quantity > 0">
+			<br>
+			<div class="row">
+				<div id="pic" class="col-md-3" style="float: left">
+					<img src="{{item.itemimg}}" style="border: 1px solid #c0c0c0" height="130" width="120">
+				</div>
+				<div id="desc" class="col-md-9" style="text-align: left">
+					<div class="row">
+						<div class="col-md-6">
+							<h3 style="color:#3131F3"><div class="itemsData">{{item.itemname}}</div></h3>
+							<b>Quantity : <div style="color:gray" class="itemsData">{{item.itemquantity}}</div></b>
+							<p><div style="color:gray" class="itemsData">{{item.itemdesc}}</div></p>
+							<b> Price:<div class="itemsData">{{item.itemprice}}</div> $</b>
+						</div><br>
+						<div class="col-md-4">
+						</div>
+						<div class="col-md-2">
+							<h3><div class="itemsData">{{item.cost}}</div>$</h3>
+							<input type="submit" ng-click="removeItemFromCart(item.itemid)" value="Remove" class="btn btn-danger"><br><br>
+						</div>
+					</div>
+				</div>
+			</div><br>
+		</div>
+		</div>
+		</form>
+
+		<div><br>
+		<div class="conatiner">
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-3">
+							<button class="btn btn-primary"  type="submit" ng-click="checkout()">Proceed to checkout</button>
+
+					</div>
+					<div class="col-md-5"><h3>Total:{{totalCost}}$</h3></div>
+				</div>
+		</div>
+		</div>
+		<br>
+
+
+		<br>
+	</div>
+	<div id="footer"></div>
+</body>
+</html>

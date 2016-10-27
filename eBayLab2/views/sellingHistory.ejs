@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sell | eBay</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/sellingHistory.js"></script>
+
+</head>
+<body ng-app="EbayApp" ng-controller="SellHistoryController" >
+<img class="logo" src="/images/EBay_logo.png" height="50" width="100" alt="My_Logo">
+<button ng-click="openCart()" style="fixed: right" type="submit" id="cartBtn" class="btn btn-primary">
+		Cart <span class="glyphicon glyphicon-shopping-cart"></span>
+	</button>
+
+	<div id="header2">
+
+		<div class="dropdown" id="menu">
+
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				Hi, <%= username %> &nbsp;<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li class="list"><a href="/Home">Home</a></li>
+				<li class="list"><form ng-submit="userProfile()" method="get">
+						<input type="submit" value="Profile" class="btn btn-block " />
+					</form></li>
+				<li class="list"><a href="/Sell">Sell</a></li>
+				<li class="list"><a href="/purchaseHistory">Purchase History</a></li>
+				<li class="list"><a href="/highestBidder">Highest Bidders</a></li>
+				<li class="list"><form action="logout" method="post">
+						<input type="submit" value="Logout" class="btn btn-block " />
+					</form></li>
+			</ul><br>
+		</div>
+	</div>
+<br>
+<body ng-app="EbayApp" ng-controller="SellHistoryController">
+	<br>
+<div id="body">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<br>
+				<h2>Selling History</h2>
+				<table id="table1" border="2" class="table table-striped">
+					<thead>
+						<tr>
+							<td><b>Product ID</b></td>
+							<td><b>Product Name</b></td>
+							<td><b>Product Price</b></td>
+							<td><b>Product Quantity</b></td>
+							<td><b>Sold On</b></td>
+							<td><b>Bidding Allowed</b></td>
+						</tr>
+					</thead>
+
+						<tr ng-repeat="item in items">
+							<td>{{item._id}}</td>
+							<td>{{item.itemname}}</td>
+							<td>{{item.itemprice}}</td>
+							<td>{{item.itemquantity}}</td>
+							<td>{{item.selltime}}</td>
+							<td>{{item.bidding}}</td>
+						</tr>
+				</table>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+</div>
+	<div id="footer"></div>
+</body>
+</html>

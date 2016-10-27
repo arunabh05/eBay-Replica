@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home | eBay</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/home.js"></script>
+</head>
+<body ng-app="EbayApp" ng-controller="HomeController">
+	<img class="logo" src="/images/EBay_logo.png" height="50" width="100"
+		alt="My_Logo">
+
+	<button ng-click="openCart()" style="fixed: right" type="submit" id="cartBtn" class="btn btn-primary">
+		Cart <span class="glyphicon glyphicon-shopping-cart"></span>
+	</button>
+	<div id="header2">
+		<div class="dropdown" id="menu">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				Hi, <span><%= username %></span> &nbsp;<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li class="list"><form ng-submit="userProfile()" method="get">
+						<input type="submit" value="Profile" class="btn btn-block " />
+					</form></li>
+				<li class="list"><a href="/purchaseHistory">Purchase History</a></li>
+				<li class="list"><a href="/sellingHistory">Selling History</a></li>
+				<li class="list"><a href="/highestBidder">Highest Bidders</a></li>
+				<li class="list"><a href="/Sell">Sell</a></li>
+				<li class="list"><form action="logout" method="post">
+						<input type="submit" value="Logout" class="btn btn-block " />
+					</form></li>
+			</ul>
+			<br> <b>Last Login :</b><%= lastlogin %>
+		</div>
+	</div>
+	<br>
+	<div id="body">
+				<div class="alert alert-success container" ng-hide="item_added">
+									<strong>Product added to Cart</strong>
+									</div>
+									<div class="alert alert-success container" ng-hide="bid_added">
+									<strong>Bidding Successful</strong>
+								</div>									<div class="alert alert-danger container" ng-hide="bidding_over">
+																		<strong>Sorry !Bidding period for this product is over</strong>
+																		</div>
+		<form ng-repeat="item in items"><div    class="container" id="product" >
+			<div ng-if="item.itemquantity > 0">
+
+			<br>
+			<div class="row" >
+				<div id="pic" class="col-md-3" style=" float: left">
+					<img src="{{item.itemimg}}" style=" border: 1px solid #c0c0c0" height="180" width="200">
+				</div>
+				<div id="desc" class="col-md-9" style="text-align: left">
+					<div class="row">
+						<div class="col-md-6">
+							<h3 style="color:#3131F3"><div class="itemsData">{{item.itemname}}</div></h3>
+							<p><div style="color:gray" class="itemsData">{{item.itemdesc}}</div></p>
+							<b> Price:<div class="itemsData">{{item.itemprice}}</div> $</b>
+							<h6 style="color:#D50E0E"><b>Quantity Left:<div class="itemsData">{{item.itemquantity}}</div></b></h6>
+							<h6>Item ID:<div class="itemsData">{{item._id}}</div></h4>
+						</div><br>
+						<div class="col-md-4">
+							<h4><b>Seller Information</b></h4>
+							<h5><b>Name:<div class="itemsData">{{item.sellerID}}</div></b></h4>
+							<h5><b> Contact: <div class="itemsData">{{item.sellerphone}}</div></b></h5>
+							<h5><b>Address: <div class="itemsData">{{item.selleraddress}}</div></b></h5>
+							<h5><b>Profile: <div class="itemsData"><a href="/users/{{item.sellerID}}">{{item.sellerID}}</a></div></b></h5>
+						</div>
+						<div class="col-md-2">
+							<input type="number" ng-model="quantity" placeholder="Quantity" required  min="1" max="{{item.itemquantity}}" class="form-control"><br>
+							<input type="submit" ng-click="addToCart(item,quantity,item.itemprice)" value="Add to Cart" class="btn btn-success"><br><br>
+							<div ng-if="item.bidding==true"><br>
+								<input type="number" ng-model="amount" placeholder="Amount" min={{item.itemprice}} class="form-control"><br>
+								<input type="submit" ng-click="makeBid(amount,item)" value="Place bid" class="btn btn-primary">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><br>
+		</div>
+		</div>
+		</form>
+		<br>
+	</div>
+	<div id="footer"></div>
+</body>
+</html>
