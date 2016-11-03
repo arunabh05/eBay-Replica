@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sell | eBay</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/sell.js"></script>
+
+</head>
+<body ng-app="EbayApp" ng-controller="SellController" >
+	<div class="row">
+	<div class="col-md-1"><a href="/Home"><img class="logo" src="/images/EBay_logo.png" height="50" width="90"
+			alt="My_Logo"></a></div>
+	<div class="col-md-9">
+	<ul class="nav nav-pills">
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Hi, arunabh05 <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			<li class="list"><form ng-submit="userProfile()" method="get"><input type="submit" value="Profile" class="btn btn-block " /></form></li>
+					<li class="list"><a href="/purchaseHistory">Purchase History</a></li>
+			<li class="list"><a href="/sellingHistory">Selling History</a></li>
+					<li class="list"><form action="logout" method="post"><input type="submit" value="Logout" class="btn btn-block " /></form>
+					</li>
+		</ul>
+		</li>
+			<li class="list"><a href="/Home">Home</a></li>
+		<li class="list"><a href="/highestBidder">Highest Bidders</a></li>
+	</ul>
+	</div>
+	<div class="col-md-2">
+		<button ng-click="openCart()" style="fixed: right" type="submit" id="cartBtn" class="btn btn-primary">
+			Cart  <span class="glyphicon glyphicon-shopping-cart">  </span>
+		</button>
+
+	</div>
+	</div>
+		<div  id="body" >
+		<h3>Sell a product on eBay App</h3>
+		<div class="row">
+
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<br>
+			<div>
+					<form ng-submit="sellProduct()">
+						<table id="table1" border="1" class="table table-hover">
+							<thead>
+								<tr>
+									<td colspan="2"><b>Product Details</b></td>
+								</tr>
+							</thead>
+							<tr>
+								<th>Item Name</th>
+								<td>
+									<input type="text" value="" required ng-model="itemName" class="form-control">
+								</td>
+							</tr>
+							<tr>
+								<th>Item Description</th>
+								<td><textarea type="text" max="150" required ng-model="itemDesc"
+									class="form-control"></textarea></td>
+							</tr>
+							<tr>
+								<th>Item Price</th>
+								<td><input type="number" max="999999999" value="" placeholder="" required ng-model="itemPrice"
+									class="form-control"></td>
+							</tr>
+							<tr>
+								<th>Item Quantity</th>
+								<td><input type="number" max="999999999" value="" placeholder="" required ng-model="itemQuantity"
+									class="form-control"></td>
+							</tr>
+							<tr>
+								<th>Item Picture</th>
+								<td><input type="text" placeholder="Any link for image from the internet" required ng-model="itemImg"
+									class="form-control"></td>
+							</tr>
+
+							<tr>
+
+								<td colspan="2"><div class="checkbox">
+      <input type="checkbox" ng-model="bid" value="bid"><b>Available for Bidding</b></div>
+    </td>
+							</tr>
+
+							<tr>
+
+								<td colspan="2"><input type="submit" value="Sell" class="btn btn-danger"></td>
+							</tr>
+
+						</table>
+					</form>		<div class="alert alert-success" ng-hide="sell_success">
+									<strong>Product is now listed for Selling</strong>
+									</div>
+									<div class="alert alert-danger" ng-hide="sell_fail">
+									<strong>Something went wrong!!! Try Again</strong>
+									</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+</body>
+</html>

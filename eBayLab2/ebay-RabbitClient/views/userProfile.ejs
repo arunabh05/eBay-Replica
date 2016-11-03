@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile | eBay</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/userProfile.js"></script>
+</head>
+<body ng-app="EbayApp" ng-controller="ProfileController" ng-init="address ='<%= data.address %>';phone ='<%= data.phone %>';bday ='<%= data.bday %>'">
+	<div class="row">
+	<div class="col-md-1"><a href="/Home"><img class="logo" src="/images/EBay_logo.png" height="50" width="90"
+			alt="My_Logo"></a></div>
+	<div class="col-md-9">
+	<ul class="nav nav-pills">
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Hi, arunabh05 <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+					<li class="list"><a href="/purchaseHistory">Purchase History</a></li>
+			<li class="list"><a href="/sellingHistory">Selling History</a></li>
+					<li class="list"><form action="logout" method="post"><input type="submit" value="Logout" class="btn btn-block " /></form>
+					</li>
+		</ul>
+		</li>
+		<li class="list"><a href="/Home">Home</a></li>
+		<li class="list"><a href="/Sell">Sell</a></li>
+		<li class="list"><a href="/highestBidder">Highest Bidders</a></li>
+	</ul>
+	</div>
+	<div class="col-md-2">
+		<button ng-click="openCart()" style="fixed: right" type="submit" id="cartBtn" class="btn btn-primary">
+			Cart  <span class="glyphicon glyphicon-shopping-cart">  </span>
+		</button>
+	</div>
+	</div>
+	<div id="body">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<br>
+				<table id="table1" border="2" class="table table-striped">
+					<thead>
+						<tr>
+							<td colspan="2"><b>Account Details</b></td>
+						</tr>
+					</thead>
+					<tr>
+						<th>Username</th>
+						<td><%= data.username %></td>
+					</tr>
+					<tr>
+						<th>Email</th>
+						<td><%= data.email %></td>
+					</tr>
+					<tr>
+						<th>First Name</th>
+						<td><%= data.firstname %></td>
+					</tr>
+					<tr>
+						<th>Last Name</th>
+						<td><%= data.lastname %></td>
+					</tr>
+					<tr>
+								<th>Ebay Handle</th>
+								<td><%= data.username %></td>
+							</tr>
+							<tr>
+								<th>Birthday</th>
+								<td><%= data.bday %></td>
+							</tr>
+				</table>
+
+
+				<div>
+					<form ng-submit="updateProfile()">
+						<table id="table1" border="2" class="table table-hover">
+							<thead>
+								<tr>
+									<td colspan="2"><b>Profile Details</b></td>
+								</tr>
+							</thead>
+							<tr>
+								<th>Birthday</th>
+								<td><input type="date" value="" required ng-model="bday"
+									class="form-control">
+
+									</td>
+							</tr>
+							<tr>
+								<th>Phone</th>
+								<td><input type="number" min="999999" max="99999999999" value="<%= data.phone %>" placeholder="<%= data.phone %>" required ng-model="phone"
+									class="form-control"></td>
+							</tr>
+							<tr>
+								<th>Address</th>
+								<td><input type="text" max="100" value="<%= data.address %>" placeholder="<%= data.address %>" required ng-model="address"
+									class="form-control"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="Update"
+									class="btn btn-success"></td>
+							</tr>
+						</table>
+					</form><div class="alert alert-success" ng-hide="update_success">
+									<strong>Profile Updated</strong>
+									</div>
+									<div class="alert alert-danger" ng-hide="update_fail">
+									<strong>Something went wrong!!! Try Again</strong>
+									</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+</body>
+</html>
