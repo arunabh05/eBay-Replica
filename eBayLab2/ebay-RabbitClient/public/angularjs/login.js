@@ -7,6 +7,28 @@ EbayApp.controller('loginRegisterController', function($scope, $http) {
 	$scope.invalid_login = true;
 	$scope.invalid_register = true;
 	$scope.email_unmatch = true;
+	$scope.username_error = true;
+var usernames;
+	$http({
+		method : "GET",
+		url : '/userList',
+		data : {}
+	}).success(function(data) {
+		// checking the response data for statusCode
+		if (data.statusCode === 401) {
+			console.log("here");
+			$scope.invalid_login = false;
+		} else {
+			$scope.invalid_login = true;
+			console.log("there");
+			console.log(data.username);
+			usernames = data.username;
+			$scope.username = usernames;
+		}
+	}).error(function(error) {
+		console.log("here");
+		$scope.invalid_login = true;
+	});
 
 	$scope.signIn = function(userId, pass) {
 		console.log("Post login request");
@@ -86,6 +108,7 @@ EbayApp.controller('loginRegisterController', function($scope, $http) {
 		$scope.invalid_register = true;
 		$scope.email_unmatch = true;
 
+		
 		console.log("Start register validation");
 		var fname = $scope.fname;
 		var lname = $scope.lname;
@@ -93,24 +116,32 @@ EbayApp.controller('loginRegisterController', function($scope, $http) {
 		var email = $scope.email;
 		var remail = $scope.remail;
 		var pass2 = $scope.password2;
+		
+	//	console.log(usernames[0].username);
+		for(var i=0;i<usernames.length;i++)
+		{
+			if(usernames[i].username==username2){
+				$scope.username_error = false;
+				console.log("finally");
+				//break;
+				return;
+			}
 
-		console.log(fname);
-		console.log(lname);
-		console.log(username2);
-		console.log(email);
-		console.log(remail);
-		console.log(pass2);
-
+		}
+		
 		if (remail !== email) {
 			console.log("Email unmatch");
 			$scope.email_unmatch = false;
-		} else {
+		} 
+		else {
 			if (fname.indexOf('=') !== -1 || lname.indexOf('=') !== -1
 					|| username2.indexOf('=') !== -1
 					|| email.indexOf('=') !== -1 || pass2.indexOf(';') !== -1) {
 				$scope.invalid_register = false;
 				console.log("Injection Attack");
 			} else {
+				console.log("finally2");
+				
 				$scope.registerUser(fname, lname, username2, email, pass2);
 			}
 		}

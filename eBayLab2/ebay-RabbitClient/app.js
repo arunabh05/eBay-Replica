@@ -53,18 +53,19 @@ if ('development' == app.get('env')) {
 // get request
 app.get('/', login.login);
 app.get('/users', user.list);
+
 app.get('/login', login.login);
+app.get('/userList',login.userList);
+
 //app.get('/Home', home.redirectToHomepage);
 
 app.post('/afterLogin', function(req, res, next) {
 	passport.authenticate('login', function(err, user, info) {
 		if (err) {
-			console.log("6");
 			return next(err);
 		}
 		if (!user) {
-			console.log("7");
-			return res.redirect('/');
+			return res.send({"statusCode":401});
 		}
 		req.logIn(user, {
 			session : false
@@ -77,7 +78,7 @@ app.post('/afterLogin', function(req, res, next) {
 			req.session.lastlogin = String(user.lastlogin);
 			console.log("session initilized");
 			return res.render('Home', {
-				user : user,
+				username : user.username,
 				lastlogin : String(user.lastlogin)
 			});
 		});
@@ -91,7 +92,6 @@ function isAuthenticated(req, res, next) {
 	  }
 	  res.redirect('/');
 	}
-
 app.get('/Home', isAuthenticated, home.redirectToHomepage);
 app.get('/userProfile',isAuthenticated, home.redirectToUserprofile);
 app.get('/Sell',isAuthenticated, home.redirectToSell);
@@ -140,6 +140,7 @@ app.use(function(err, req, res, next) {
 
 // post request
 //app.post('/afterLogin', login.afterLogin);
+try{
 app.post('/logout',isAuthenticated, home.logout);
 app.post('/register', register.registerUser);
 app.post('/updateProfile',isAuthenticated, userProfile.updateProfile);
@@ -149,6 +150,12 @@ app.post('/removeItemFromCart',isAuthenticated, cart.removeItemFromCart);
 app.post('/checkout',isAuthenticated, cart.checkoutItemsFromCart);
 app.post('/validateCard',isAuthenticated, payment.validateCard);
 app.post('/makeBid',isAuthenticated, bid.makeBid);
+}
+catch(ex){
+	console.log(ex.message);
+}
+
+
 
 mongo.connect(mongoSessionConnectURL, function(){
 	console.log('Connected to mongo at: ' + mongoSessionConnectURL);

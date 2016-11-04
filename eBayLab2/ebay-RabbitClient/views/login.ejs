@@ -113,11 +113,13 @@
 								<div class="alert alert-danger" ng-hide="email_unmatch">
 									<strong>Email does not match</strong>
 								</div>
-
 								<div>
 <br>
 								</div>
 								<div ng-hide="invalid_register"><strong>Username or Email already exist</strong></div>
+							</div>
+							<div class="alert alert-danger" ng-hide="username_error">
+								<strong>Username already exists</strong>
 							</div>
 						</div>
 					</form>

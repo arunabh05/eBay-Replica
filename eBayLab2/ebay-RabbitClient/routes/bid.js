@@ -7,6 +7,11 @@ var mq_client = require('../rpc/client');
 
 
 exports.makeBid = function(req, res) {
+try{
+	console.log(pllp);
+}catch(ex){
+	console.error(ex);
+}
 	var item = req.param("item");
 	var amount = req.param("amount");
 	var selltime = new Date(item.selltime);

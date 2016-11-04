@@ -17,44 +17,20 @@ var login = function(req, res) {
 	});
 };
 
-var afterLogin = function(req, res) {
-	var json_responses;
-	var pass = req.param("password");
-	var username = req.param("username");
+var userList = function(req, res) {
 	mongo.connect(mongoURL, function() {
 		console.log('Connected to mongo at: ' + mongoURL);
 		var coll = mongo.collection('users');
-		coll.findOne({
-			username : username
-		}, function(err, user) {
+		coll.find({},{_id:0,username:1}).toArray(function(err, user) {
 			if (user) {
-				// This way subsequent requests will know the user is logged in.
-				if (bcrypt.compareSync(pass, user.password)) {
-					logger.info(req.param("username") + ' logged in');
-					req.session.username = user.username;
-					req.session.lastlogin = String(user.lastlogin);
-					console.log(req.session.username + " is the session");
-					json_responses = {
-						"lastlogin" : user.last_login
-					};
-					res.send(json_responses);
-				} else {
-					json_responses = {
-						'statusCode' : 401
-					};
-					logger.info(req.param("username")
-							+ ' invalid log in attempt');
-					res.send(json_responses);
-				}
-			} else {
-				json_responses = {
-					"statusCode" : 401
-				};
-				res.send(json_responses);
+				console.log(user);
+				res.send({"username":user});
+			}else{
+				res.send({"statusCode":401});
 			}
 		});
 	});
 };
 
 exports.login = login;
-exports.afterLogin = afterLogin;
+exports.userList = userList;
