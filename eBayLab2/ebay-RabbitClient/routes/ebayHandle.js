@@ -4,6 +4,7 @@ var mq_client = require('../rpc/client');
 
 
 exports.ebayHandle = function(req,res){
+try{
 	var username = req.session.username;
 	var ebayHandle = req.param("id");
 	var msg_payload = { "ebayHandle":ebayHandle};
@@ -24,4 +25,7 @@ exports.ebayHandle = function(req,res){
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };

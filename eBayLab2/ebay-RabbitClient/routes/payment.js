@@ -1,6 +1,7 @@
 var logger = require('./logger');
 
 exports.validateCard = function(req, res) {
+try{
 	var cardNumber = req.param("cardNumber");
 	var expDate = req.param("expDate");
 	var CVV = req.param("cvv");
@@ -20,4 +21,7 @@ exports.validateCard = function(req, res) {
 			"statusCode" : 200
 		});
 	}
+}catch(ex){
+	console.log(ex);
+}
 };

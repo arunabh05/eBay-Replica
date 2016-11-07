@@ -1,11 +1,11 @@
-var mongo = require("./mongo");
-var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 var ejs = require("ejs");
-var mysql = require('./mysql');
 var bcrypt = require("bcrypt-nodejs");
 var logger = require('./logger');
+var mq_client = require('../rpc/client');
+
 
 var login = function(req, res) {
+try{
 	logger.info('Login page requested');
 	ejs.renderFile('./views/login.ejs', function(err, result) {
 		if (!err) {
@@ -15,21 +15,33 @@ var login = function(req, res) {
 			res.end('An error occured');
 		}
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 var userList = function(req, res) {
-	mongo.connect(mongoURL, function() {
-		console.log('Connected to mongo at: ' + mongoURL);
-		var coll = mongo.collection('users');
-		coll.find({},{_id:0,username:1}).toArray(function(err, user) {
-			if (user) {
-				console.log(user);
-				res.send({"username":user});
-			}else{
-				res.send({"statusCode":401});
-			}
-		});
-	});
+try{
+var msg_payload = { "refID":2};
+mq_client.make_request('login_queue',msg_payload, function(err,results){
+	console.log(results.statusCode);
+	if(err){
+		throw err;
+	}
+	else {
+		if(results.statusCode === 200){
+			console.log("all OK");
+			var data = results.username;
+			res.send({"username":data});
+		}
+		else {    
+			res.send({"statusCode":401});
+		}
+	}  
+});
+}catch(ex){
+console.log(ex);
+}
 };
 
 exports.login = login;

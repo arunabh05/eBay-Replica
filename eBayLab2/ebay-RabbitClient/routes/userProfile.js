@@ -1,11 +1,9 @@
 var ejs = require("ejs");
-var mysql = require('./mysql');
 var logger = require('./logger');
-var mongo = require("./mongo");
-var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 var mq_client = require('../rpc/client');
 
 var updateProfile = function(req, res) {
+try{
 	console.log("In update profile");
 	var username = req.session.username;
 	var bday = req.param("bday");
@@ -28,6 +26,9 @@ var updateProfile = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}	
 };
 
 exports.updateProfile = updateProfile;

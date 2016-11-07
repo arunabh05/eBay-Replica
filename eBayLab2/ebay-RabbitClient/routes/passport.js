@@ -7,25 +7,25 @@ var bcrypt = require("bcrypt-nodejs");
 module.exports = function(passport) {
 	
 	passport.use('login', new LocalStrategy(function(username, password, done) {
-		mongo.connect(loginDatabase, function(connection) {
-            var loginCollection = mongo.collection('users');
+		mongo.getConnection(loginDatabase, function(connection) {
+			var loginCollection = mongo.collection('users');
             var whereParams = {
                 username:username
             };
             process.nextTick(function(){
                 loginCollection.findOne(whereParams, function(err, user) {
-                    if(err) {
+                	if(err) {
                     	return done(err);
                     }
                     if(!user) {
                     	return done(null, false);
                     }
                     if(bcrypt.compareSync(password,user.password) === false) {
-                    	console.log(user);
+                        console.log(user);
                     	done(null, false);
                     }
-                    connection.close();
                     console.log(user.username);
+                    console.log("130");
                     done(null, user);
                 });
             });

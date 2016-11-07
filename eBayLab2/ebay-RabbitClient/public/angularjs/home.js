@@ -2,9 +2,9 @@ var EbayApp = angular.module('EbayApp', []);
 
 EbayApp.controller('HomeController', function($scope, $http) {
 	$scope.item_added = true;
+	$scope.quantity = 1;
 	$scope.bidding_over = true;
 	$scope.bid_added = true;
-	$scope.quantity = 1;
 	console.log("Home Controller");
 	var items;
 	if (!items) {
@@ -47,6 +47,8 @@ EbayApp.controller('HomeController', function($scope, $http) {
 				"amount" : amount
 			}
 		}).success(function(data) {
+			$scope.quantity = 1;
+
 			if (data.statusCode === 401) {
 				console.log("error loading cart");
 				$scope.bid_added = true;
@@ -77,11 +79,12 @@ EbayApp.controller('HomeController', function($scope, $http) {
 				"price" : price
 			}
 		}).success(function(data) {
+	
 			// checking the response data for statusCode
 			if (data.statusCode === 401) {
 				console.log("error loading cart");
 			} else {
-				$scope.quantity = "";
+				$scope.quantity = 1;
 				console.log("items added to cart");
 				$scope.unknown_error = true;
 				$scope.item_added = false;

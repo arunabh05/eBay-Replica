@@ -3,7 +3,7 @@ var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 
 exports.redirectToUserprofile = function(msg, callback) {
 	var res = {};
-	mongo.connect(mongoURL , function(){
+	mongo.getConnection(mongoURL , function(){
 		var coll = mongo.collection('users');
 		coll.findOne({username:msg.username},function(err, user){
 			if(user){
@@ -26,7 +26,7 @@ exports.getProducts = function(msg, callback) {
 	console.log("11");
 	var res = {};
 	var productList;
-	mongo.connect(mongoURL,function(){
+	mongo.getConnection(mongoURL,function(){
 		var products = mongo.collection('Products');
 		products.find({sellerID:{$ne: msg.username}}).toArray(function(err, products){
 			if (products) {
@@ -45,7 +45,7 @@ exports.getProducts = function(msg, callback) {
 // Logout the user - invalidate the session
 exports.logout = function(msg, callback) {
 	var res = {};
-	mongo.connect(mongoURL,function(){
+	mongo.getConnection(mongoURL,function(){
 	var coll = mongo.collection('users');
 	coll.update(
 		{username:msg.username},
@@ -65,7 +65,7 @@ exports.logout = function(msg, callback) {
 exports.addToCart = function(msg, callback){
 	console.log("In add to cart");
 	var res = {};
-	mongo.connect(mongoURL, function(){
+	mongo.getConnection(mongoURL, function(){
 		var coll = mongo.collection('users');
 		coll.update({username: msg.username},
 			{$addToSet:{cartItems:{itemid:msg.item._id,

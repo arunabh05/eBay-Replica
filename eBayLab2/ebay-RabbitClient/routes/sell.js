@@ -4,6 +4,7 @@ var mq_client = require('../rpc/client');
 
 
 var sellProduct = function(req, res) {
+try{
 	console.log("Store Item Details");
 	var username = req.session.username;
 	var itemname = req.param("itemname");
@@ -40,25 +41,37 @@ var sellProduct = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.sellingHistory = function(req, res) {
+try{
 	logger.info(req.session.username + " redirected to selling history");
 	res.header('Cache-Control','no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 	res.render("sellingHistory", {
 		username : req.session.username,
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.purchaseHistory = function(req, res) {
+try{
 	logger.info(req.session.username + " redirected to purchase history");
 	res.header('Cache-Control','no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 	res.render("purchaseHistory", {
 		username : req.session.username,
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.getSoldProducts = function(req, res) {
+try{
 	var username = req.session.username;
 	var msg_payload = { "refID":2,"username": username};
 	var productList;
@@ -78,9 +91,13 @@ exports.getSoldProducts = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.getPurchasedProducts = function(req, res) {
+try{
 	var username = req.session.username;
 	var msg_payload = { "refID":3,"username": username};
 	var productList;
@@ -100,6 +117,9 @@ exports.getPurchasedProducts = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.sellProduct = sellProduct;

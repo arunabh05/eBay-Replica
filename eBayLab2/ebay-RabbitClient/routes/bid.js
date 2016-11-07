@@ -1,17 +1,9 @@
 var ejs = require("ejs");
-var mysql = require('./mysql');
 var logger = require('./logger');
-var mongo = require("./mongo");
-var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 var mq_client = require('../rpc/client');
-
 
 exports.makeBid = function(req, res) {
 try{
-	console.log(pllp);
-}catch(ex){
-	console.error(ex);
-}
 	var item = req.param("item");
 	var amount = req.param("amount");
 	var selltime = new Date(item.selltime);
@@ -40,19 +32,28 @@ try{
 		} else {
 			res.send({"statusCode":401});
 		}
-	}});
+	}
+});
+	}catch(ex){
+		console.error(ex);
+	}
 };
 
 exports.highestBidder = function(req, res) {
-	console.log("redirecting to Bidding Table");
+try{	console.log("redirecting to Bidding Table");
 	logger.info(req.session.username + " requested /higgestBidder");
 	res.header('Cache-Control','no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 	res.render("highestBidders", {
 		username : req.session.username,
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.updateBid = function(req, res) {
+try{
+	console.log("updating bid");
 	console.log("updating bidding table");
 	var msg_payload = { "refID":2};
 	mq_client.make_request('bid_queue',msg_payload, function(err,results){
@@ -71,4 +72,7 @@ exports.updateBid = function(req, res) {
 			}
 		}
 	});
+}catch(ex){
+	console.log(ex);
+}
 };

@@ -4,7 +4,7 @@ var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 exports.getCartItems = function(msg, callback) {
 	console.log("session available. Getting cart items list");
 	var res = {};
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('users');
 		coll.findOne({
 			username : msg.username
@@ -26,7 +26,7 @@ exports.getCartItems = function(msg, callback) {
 
 exports.removeItemFromCart = function(msg, callback) {
 	var res = {};
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('users');
 		coll.update({
 			username : msg.username
@@ -50,7 +50,7 @@ exports.removeItemFromCart = function(msg, callback) {
 
 var updateCart = function(items, username) {
 	console.log("updating Stock");
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('users');
 		for (var i = 0; i < items.length; i++) {
 			coll.update({
@@ -75,7 +75,7 @@ var updateCart = function(items, username) {
 var updateStock = function(items, username) {
 	console.log("updating Stock");
 	updateCart(items, username);
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('Products');
 		for (var i = 0; i < items.length; i++) {
 			console.log("::::::::::::"+i+"::::::::::::");
@@ -112,7 +112,7 @@ exports.checkoutItemsFromCart = function(msg, callback) {
 		msg.items[i].buytime = new Date();
 	}
 	updateStock(msg.items, msg.username);
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('users');
 		coll.update({
 			username : msg.username

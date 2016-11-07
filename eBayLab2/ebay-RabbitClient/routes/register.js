@@ -4,6 +4,7 @@ var logger = require('./logger');
 var mq_client = require('../rpc/client');
 
 var registerUser = function(req, res) {
+try{
 	var username = req.param("username");
 	var email = req.param("email");
 	var firstname = req.param("firstname");
@@ -31,6 +32,9 @@ var registerUser = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.registerUser = registerUser;

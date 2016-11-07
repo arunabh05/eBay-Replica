@@ -4,7 +4,7 @@ var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 var registerUser = function(msg, callback) {
 	var res = {};
 	// check user already exists
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		console.log(msg.password);
 		console.log('Connected to mongo at: ' + mongoURL);
 		var coll = mongo.collection('users');

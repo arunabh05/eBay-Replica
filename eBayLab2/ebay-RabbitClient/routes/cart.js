@@ -3,14 +3,19 @@ var logger = require('./logger');
 var mq_client = require('../rpc/client');
 
 exports.redirectToCart = function(req, res) {
+try{
 	logger.info(req.session.username + " redirected to Cart");
 	res.header('Cache-Control','no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 	res.render("cart", {
 		username : req.session.username
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.getCartItems = function(req, res) {
+try{
 	var username = req.session.username;
 	var msg_payload = { "refID":1,"username": username};
 	var productList;
@@ -30,9 +35,13 @@ exports.getCartItems = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.removeItemFromCart = function(req, res) {
+try{
 	var itemid = req.param("itemid");
 	var username = req.session.username;
 	logger.info(username + " removed CartId:"+ itemid + " from cart");
@@ -52,9 +61,13 @@ exports.removeItemFromCart = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.checkoutItemsFromCart = function(req, res) {
+try{
 	console.log("updatingStock from cart");
 	logger.info(req.session.username + " checked out items from cart");
 	var username = req.session.username;
@@ -80,9 +93,13 @@ exports.checkoutItemsFromCart = function(req, res) {
 			}
 		}  
 	});
+}catch(ex){
+	console.log(ex);
+}
 };
 
 exports.redirectToPayment = function(req, res) {
+try{
 	console.log("checkoutCost::" + req.session.checkoutCost);
 	logger.info(req.session.username + " redirected to Payment");
 	res.header('Cache-Control','no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -90,4 +107,7 @@ exports.redirectToPayment = function(req, res) {
 		username : req.session.username,
 		checkoutCost : req.session.checkoutCost
 	});
+}catch(ex){
+	console.log(ex);
+}
 };

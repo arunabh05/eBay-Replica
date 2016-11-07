@@ -4,7 +4,7 @@ var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 exports.makeBid = function(msg ,callback) {
 	var res = {};
 	console.log("placing your bid");
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('bidsMade');
 		coll.insert({
 			username : msg.username,
@@ -30,7 +30,7 @@ exports.makeBid = function(msg ,callback) {
 exports.updateBid = function(msg, callback) {
 	var res = {};
 	console.log("updating bidding table");
-	mongo.connect(mongoURL, function() {
+	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('bidsMade');
 		coll.aggregate([ {
 			"$sort" : {

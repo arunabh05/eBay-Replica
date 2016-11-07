@@ -14,6 +14,30 @@ var cnn = amqp.createConnection({
 });
 
 cnn.on('ready', function() {
+
+	
+	console.log("listening on login_queue");
+	cnn.queue('login_queue', function(q) {
+		q.subscribe(function(message, headers, deliveryInfo, m) {
+			util.log(util.format(deliveryInfo.routingKey, message));
+			util.log("Message: " + JSON.stringify(message));
+			util.log(":::::::::" + m.replyTo);
+			util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
+			if(message.refID === 2){
+				login.userList(message, function(err, res) {
+				// return index sent
+			//	console.log(res);
+				cnn.publish(m.replyTo, res, {
+					contentType : 'application/json',
+					contentEncoding : 'utf-8',
+					correlationId : m.correlationId
+				});
+			});}
+		});
+	});
+
+	
+	
 	console.log("listening on Home_queue");
 	cnn.queue('Home_queue', function(q) {
 		q.subscribe(function(message, headers, deliveryInfo, m) {
@@ -25,7 +49,7 @@ cnn.on('ready', function() {
 				console.log("in here");
 				home.redirectToUserprofile(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -37,7 +61,7 @@ cnn.on('ready', function() {
 				console.log("in here");
 				home.getProducts(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -49,7 +73,7 @@ cnn.on('ready', function() {
 				console.log("in here");
 				home.logout(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -61,7 +85,7 @@ cnn.on('ready', function() {
 				console.log("in there");
 				home.addToCart(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -81,7 +105,7 @@ cnn.on('ready', function() {
 			util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
 			register.registerUser(message, function(err, res) {
 				// return index sent
-				console.log(res);
+			//	console.log(res);
 				cnn.publish(m.replyTo, res, {
 					contentType : 'application/json',
 					contentEncoding : 'utf-8',
@@ -100,7 +124,7 @@ cnn.on('ready', function() {
 			util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
 			userProfile.updateProfile(message, function(err, res) {
 				// return index sent
-				console.log(res);
+		//		console.log(res);
 				cnn.publish(m.replyTo, res, {
 					contentType : 'application/json',
 					contentEncoding : 'utf-8',
@@ -120,7 +144,7 @@ cnn.on('ready', function() {
 			if(message.refID === 1 ){
 				sell.sellProduct(message, function(err, res) {
 					// return index sent
-					console.log(res);
+			//		console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -131,7 +155,7 @@ cnn.on('ready', function() {
 			if(message.refID === 2 ){
 				sell.getSoldProducts(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -142,7 +166,7 @@ cnn.on('ready', function() {
 			if(message.refID === 3 ){
 				sell.getPurchasedProducts(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -162,7 +186,7 @@ cnn.on('ready', function() {
 			util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
 			ebayHandle.ebayHandle(message, function(err, res) {
 				// return index sent
-				console.log(res);
+			//	console.log(res);
 				cnn.publish(m.replyTo, res, {
 					contentType : 'application/json',
 					contentEncoding : 'utf-8',
@@ -182,7 +206,7 @@ cnn.on('ready', function() {
 			if(message.refID === 1){
 				cart.getCartItems(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -193,7 +217,7 @@ cnn.on('ready', function() {
 			if(message.refID === 2){
 				cart.removeItemFromCart(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -204,7 +228,7 @@ cnn.on('ready', function() {
 			if(message.refID === 3){
 				cart.checkoutItemsFromCart(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -225,7 +249,7 @@ cnn.on('ready', function() {
 			if(message.refID === 1){
 				bid.makeBid(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
@@ -236,7 +260,7 @@ cnn.on('ready', function() {
 			if(message.refID === 2){
 				bid.updateBid(message, function(err, res) {
 					// return index sent
-					console.log(res);
+				//	console.log(res);
 					cnn.publish(m.replyTo, res, {
 						contentType : 'application/json',
 						contentEncoding : 'utf-8',
