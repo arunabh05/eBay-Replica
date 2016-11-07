@@ -2,13 +2,6 @@ var MongoClient = require('mongodb').MongoClient;
 var db;
 var connected = false;
 var option = {
-		  server: {
-		    auto_reconnect: true,
-		    poolSize : 40,
-		    socketOptions: {
-		        connectTimeoutMS: 500
-		    }
-		  }
 		};
 
 /**
@@ -26,11 +19,6 @@ exports.connect = function(url, callback){
 
 
 exports.getConnection = function(url, callback){
-	if(db){
-		console.log("we have connections. dont get any more");
-		callback(db);
-	}
-	else{
 		MongoClient.connect(url,option, function(err, _db){
 		  if (err) { throw new Error('Could not connect: '+err); }
 		   	  db = _db;
@@ -38,7 +26,6 @@ exports.getConnection = function(url, callback){
 		      console.log(connected +" is connected?");
 		      callback(db);
 		  });
-	}
 };
 
 

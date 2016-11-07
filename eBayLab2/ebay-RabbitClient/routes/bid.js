@@ -52,7 +52,8 @@ try{	console.log("redirecting to Bidding Table");
 };
 
 exports.updateBid = function(req, res) {
-try{
+console.log("here");
+	try{
 	console.log("updating bid");
 	console.log("updating bidding table");
 	var msg_payload = { "refID":2};
