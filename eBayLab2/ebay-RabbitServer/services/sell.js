@@ -31,7 +31,6 @@ var sellProduct = function(msg, callback) {
 };
 
 exports.getSoldProducts = function(msg , callback) {
-	console.log("session available. Getting sold list");
 	var res = {};
 	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('Products');

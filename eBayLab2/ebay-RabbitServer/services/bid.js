@@ -3,7 +3,6 @@ var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 
 exports.makeBid = function(msg ,callback) {
 	var res = {};
-	console.log("placing your bid");
 	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('bidsMade');
 		coll.insert({
@@ -16,7 +15,6 @@ exports.makeBid = function(msg ,callback) {
 			selltime : msg.selltime
 		}, function(err, user) {
 			if (user) {
-				console.log("BidPlaced");
 				res.statusCode = 200;
 				callback(null ,res);
 			} else {
@@ -29,7 +27,6 @@ exports.makeBid = function(msg ,callback) {
 
 exports.updateBid = function(msg, callback) {
 	var res = {};
-	console.log("updating bidding table");
 	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('bidsMade');
 		coll.aggregate([ {
@@ -69,14 +66,12 @@ exports.updateBid = function(msg, callback) {
 						winnerList.push(user[i]);
 					}
 				}
-				console.log("Bid");
 				res.bidList = bidList;
 				res.winList	= winnerList;
 				res.statusCode = 200;
 				callback(null, res);
 			} else {
 				res.statusCode = 401;
-				console.log("Bidding Error");
 				callback(null, res);
 			}
 		});

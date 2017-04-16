@@ -7,11 +7,9 @@ var userList = function(msg, callback) {
 	var res = {};
 try{
 	mongo.getConnection(mongoURL, function() {
-		console.log('Connected to mongo at: ' + mongoURL);
 		var coll = mongo.collection('users');
 		coll.find({},{_id:0,username:1}).toArray(function(err, user) {
 			if (user) {
-				console.log(user);
 				res.username=user;
 				res.statusCode = 200;
 				callback(null, res);

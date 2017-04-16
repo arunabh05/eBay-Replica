@@ -26,14 +26,12 @@ try{
 			"bid":bid
 			};
 	mq_client.make_request('Sell_queue',msg_payload, function(err,results){
-		console.log(results.statusCode);
 		if(err){
 			throw err;
 		}
 		else 
 		{
 			if(results.statusCode === 200){
-				console.log("all OK");
 				logger.info(username+ " clicked on: Sell. Product Name:" + itemname);
 				res.send({"statusCode":200});
 			} else {
@@ -76,14 +74,12 @@ try{
 	var msg_payload = { "refID":2,"username": username};
 	var productList;
 	mq_client.make_request('Sell_queue',msg_payload, function(err,results){
-		console.log(results.statusCode);
 		if(err){
 			throw err;
 		}
 		else 
 		{
 			if(results.statusCode === 200){
-				console.log("all OK");
 				productList = results.productList;
 				res.send({"productList":productList});
 			} else {
@@ -102,14 +98,12 @@ try{
 	var msg_payload = { "refID":3,"username": username};
 	var productList;
 	mq_client.make_request('Sell_queue',msg_payload, function(err,results){
-		console.log(results.statusCode);
 		if(err){
 			throw err;
 		}
 		else 
 		{
 			if(results.statusCode === 200){
-				console.log("all OK");
 				productList = results.productList;
 				res.send({"productList":productList});
 			} else {

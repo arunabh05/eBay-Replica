@@ -4,7 +4,6 @@ var mq_client = require('../rpc/client');
 
 var updateProfile = function(req, res) {
 try{
-	console.log("In update profile");
 	var username = req.session.username;
 	var bday = req.param("bday");
 	var phone = req.param("phone");
@@ -12,7 +11,6 @@ try{
 	logger.info(username+" clicked on: Update Profile");
 	var msg_payload = { "refID":1,"username": username,"bday":bday,"phone":phone,"address":address};
 	mq_client.make_request('UserProfile_queue',msg_payload, function(err,results){
-		console.log(results.statusCode);
 		if(err){
 			throw err;
 		}

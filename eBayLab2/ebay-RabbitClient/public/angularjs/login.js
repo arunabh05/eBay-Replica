@@ -14,24 +14,18 @@ var usernames;
 		url : '/userList',
 		data : {}
 	}).success(function(data) {
-		// checking the response data for statusCode
 		if (data.statusCode === 401) {
-			console.log("here");
 			$scope.invalid_login = false;
 		} else {
 			$scope.invalid_login = true;
-			console.log("there");
-			console.log(data.username);
 			usernames = data.username;
 			$scope.username = usernames;
 		}
 	}).error(function(error) {
-		console.log("here");
 		$scope.invalid_login = true;
 	});
 
 	$scope.signIn = function(userId, pass) {
-		console.log("Post login request");
 		$http({
 			method : "POST",
 			url : '/afterLogin',
@@ -40,15 +34,9 @@ var usernames;
 				"password" : $scope.password
 			}
 		}).success(function(data) {
-			// checking the response data for statusCode
 			if (data.statusCode == 401) {
-				
 				$scope.invalid_login = false;
-
 			} else {
-				// Making a get call to the '/redirectToHomepage' API
-			//	console.log(data.lastlogin);
-	//			$sessionStorage.username = $scope.userId;
 				window.location.assign("/Home");
 				$scope.invalid_login = true;
 			}
@@ -59,12 +47,8 @@ var usernames;
 
 	$scope.validateLogin = function() {
 		$scope.invalid_login = true;
-
-		console.log("Start validation");
 		var userId = $scope.userId;
 		var pass = $scope.password;
-		console.log(userId);
-		console.log(pass);
 
 		if (userId.indexOf('=') !== -1 || userId.indexOf(';') !== -1
 				|| pass.indexOf('=') !== -1 || pass.indexOf(';') !== -1) {
@@ -76,7 +60,6 @@ var usernames;
 	};
 
 	$scope.registerUser = function(fname, lname, email, pass2) {
-		console.log("Post register request");
 		$http({
 			method : "POST",
 			url : '/register',
@@ -88,14 +71,10 @@ var usernames;
 				"lastname" : $scope.lname
 			}
 		}).success(function(data) {
-			// checking the response data for statusCode
 			if (data.statusCode == 401) {
 				$scope.invalid_register = true;
-
 			} else {
-				// Making a get call to the '/redirectToHomepage' API
 				window.location.assign("/login");
-				console.log("here");
 				$scope.invalid_login = true;
 			}
 		}).error(function(error) {
@@ -104,12 +83,9 @@ var usernames;
 	};
 
 	$scope.validateRegister = function() {
-
 		$scope.invalid_register = true;
 		$scope.email_unmatch = true;
 
-		
-		console.log("Start register validation");
 		var fname = $scope.fname;
 		var lname = $scope.lname;
 		var username2 = $scope.username2;
@@ -117,20 +93,15 @@ var usernames;
 		var remail = $scope.remail;
 		var pass2 = $scope.password2;
 		
-	//	console.log(usernames[0].username);
 		for(var i=0;i<usernames.length;i++)
 		{
 			if(usernames[i].username==username2){
 				$scope.username_error = false;
-				console.log("finally");
-				//break;
 				return;
 			}
-
 		}
 		
 		if (remail !== email) {
-			console.log("Email unmatch");
 			$scope.email_unmatch = false;
 		} 
 		else {
@@ -138,10 +109,7 @@ var usernames;
 					|| username2.indexOf('=') !== -1
 					|| email.indexOf('=') !== -1 || pass2.indexOf(';') !== -1) {
 				$scope.invalid_register = false;
-				console.log("Injection Attack");
 			} else {
-				console.log("finally2");
-				
 				$scope.registerUser(fname, lname, username2, email, pass2);
 			}
 		}

@@ -5,7 +5,6 @@ var loginDatabase = "mongodb://localhost:27017/ebayappdemo";
 var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(passport) {
-	
 	passport.use('login', new LocalStrategy(function(username, password, done) {
 		mongo.getConnection(loginDatabase, function(connection) {
 			var loginCollection = mongo.collection('users');
@@ -24,8 +23,6 @@ module.exports = function(passport) {
                         console.log(user);
                     	done(null, false);
                     }
-                    console.log(user.username);
-                    console.log("130");
                     done(null, user);
                 });
             });

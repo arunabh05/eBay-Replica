@@ -2,7 +2,6 @@ var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/ebayappdemo";
 
 exports.getCartItems = function(msg, callback) {
-	console.log("session available. Getting cart items list");
 	var res = {};
 	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('users');
@@ -49,7 +48,6 @@ exports.removeItemFromCart = function(msg, callback) {
 };
 
 var updateCart = function(items, username) {
-	console.log("updating Stock");
 	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('users');
 		for (var i = 0; i < items.length; i++) {
@@ -73,16 +71,13 @@ var updateCart = function(items, username) {
 };
 
 var updateStock = function(items, username) {
-	console.log("updating Stock");
 	updateCart(items, username);
 	mongo.getConnection(mongoURL, function() {
 		var coll = mongo.collection('Products');
 		for (var i = 0; i < items.length; i++) {
-			console.log("::::::::::::"+i+"::::::::::::");
 			coll.findOne({_id : items[i].itemid}, function(err, quant) {
 				if (quant.itemquantity > 0) {
 					for (var j = 0; j < items.length; j++) {
-					console.log(":::::::"+j+":::::::"+quant._id);
 						coll.update({
 							_id : quant._id
 						}, {
@@ -104,7 +99,6 @@ var updateStock = function(items, username) {
 };
 
 exports.checkoutItemsFromCart = function(msg, callback) {
-	console.log("updatingStock from cart");
 	var totalCost = 0;
 	var res = {};
 	for (var i = 0; i < msg.items.length; i++) {

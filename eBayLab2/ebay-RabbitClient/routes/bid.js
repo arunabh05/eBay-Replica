@@ -9,7 +9,6 @@ try{
 	var selltime = new Date(item.selltime);
 	var bidtime = new Date();
 	logger.info(req.session.username + " placed a bid on item id: "+ item._id + " amount: " + req.param("amount"));
-	console.log("placing your bid");
 	var username = req.session.username;
 	var msg_payload = { "refID":1,
 		"username": username,
@@ -21,13 +20,11 @@ try{
 		"selltime" : selltime
 		};
 	mq_client.make_request('bid_queue',msg_payload, function(err,results){
-		console.log(results.statusCode);
 		if(err){
 			throw err;
 		}
 		else {
 		if(results.statusCode === 200){
-			console.log("all OK");
 			res.send({"statusCode":200});
 		} else {
 			res.send({"statusCode":401});
@@ -40,31 +37,26 @@ try{
 };
 
 exports.highestBidder = function(req, res) {
-try{	console.log("redirecting to Bidding Table");
-	logger.info(req.session.username + " requested /higgestBidder");
-	res.header('Cache-Control','no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-	res.render("highestBidders", {
-		username : req.session.username,
-	});
-}catch(ex){
+	try{	
+		logger.info(req.session.username + " requested /higgestBidder");
+		res.header('Cache-Control','no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+		res.render("highestBidders", {
+			username : req.session.username,
+		});
+	}catch(ex){
 	console.log(ex);
-}
+	}
 };
 
 exports.updateBid = function(req, res) {
-console.log("here");
 	try{
-	console.log("updating bid");
-	console.log("updating bidding table");
-	var msg_payload = { "refID":2};
-	mq_client.make_request('bid_queue',msg_payload, function(err,results){
-		console.log(results.statusCode);
+		var msg_payload = { "refID":2};
+		mq_client.make_request('bid_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
 		}
 		else {
 			if(results.statusCode === 200){
-				console.log("all OK");
 				var winList = results.winList;
 				var bidList = results.bidList;
 				res.send({"winList":winList,"bidList":bidList});
@@ -73,7 +65,7 @@ console.log("here");
 			}
 		}
 	});
-}catch(ex){
-	console.log(ex);
-}
+	}catch(ex){
+		console.log(ex);
+	}
 };

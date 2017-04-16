@@ -1,6 +1,5 @@
 var winston = require('winston');
 
-
 var date = new Date();
 var winston = new (winston.Logger)({  
     transports: [

@@ -7,10 +7,7 @@ exports.redirectToUserprofile = function(msg, callback) {
 		var coll = mongo.collection('users');
 		coll.findOne({username:msg.username},function(err, user){
 			if(user){
-				console.log("all OK");
 				var data = user;
-				console.log(user);
-				console.log(data);
 				res.data = data;
 				res.statusCode = 200;
 				callback(null, res);
@@ -23,7 +20,6 @@ exports.redirectToUserprofile = function(msg, callback) {
 };
 		
 exports.getProducts = function(msg, callback) {
-	console.log("11");
 	var res = {};
 	var productList;
 	mongo.getConnection(mongoURL,function(){
@@ -42,7 +38,6 @@ exports.getProducts = function(msg, callback) {
 	});
 };
 
-// Logout the user - invalidate the session
 exports.logout = function(msg, callback) {
 	var res = {};
 	mongo.getConnection(mongoURL,function(){
@@ -51,11 +46,9 @@ exports.logout = function(msg, callback) {
 		{username:msg.username},
 		{$set :{lastlogin: new Date()}},function(err,user){
 		if(!err){
-			console.log("logout success");
 			res.statusCode = 200;
 			callback(null,res);
 		} else {
-			console.log("Update error");
 			res.statusCode = 401;
 			callback(null, res);
 		}});
@@ -63,7 +56,6 @@ exports.logout = function(msg, callback) {
 };
 
 exports.addToCart = function(msg, callback){
-	console.log("In add to cart");
 	var res = {};
 	mongo.getConnection(mongoURL, function(){
 		var coll = mongo.collection('users');
@@ -78,7 +70,6 @@ exports.addToCart = function(msg, callback){
 			}}},function(err, user){
 			var json_responses;
 			if(user){
-				console.log("Add to cart Success");
 				res.statusCode = 200;
 				callback(null, res);
 			} else {
