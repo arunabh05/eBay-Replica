@@ -1,0 +1,50 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from HomeService WSDL service -->
+
+  <service name="Home" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://com"/>
+      <parameter name="wsdlServiceElement" value="HomeService"/>
+      <parameter name="schemaQualified" value="http://model,http://com"/>
+      <parameter name="wsdlServicePort" value="Home"/>
+      <parameter name="className" value="com.HomeSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Home"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getProducts" qname="operNS:getProducts" xmlns:operNS="http://com" returnQName="retNS:getProductsReturn" xmlns:retNS="http://com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getProfile" qname="operNS:getProfile" xmlns:operNS="http://com" returnQName="retNS:getProfileReturn" xmlns:retNS="http://com" returnType="rtns:User" xmlns:rtns="http://model" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="logout" qname="operNS:logout" xmlns:operNS="http://com" returnQName="retNS:logoutReturn" xmlns:retNS="http://com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="addToCart" qname="operNS:addToCart" xmlns:operNS="http://com" returnQName="retNS:addToCartReturn" xmlns:retNS="http://com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:itemid" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:price" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:quantity" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:cost" xmlns:pns="http://com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="logout getProfile addToCart getProducts"/>
+
+      <typeMapping
+        xmlns:ns="http://model"
+        qname="ns:User"
+        type="java:model.User"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

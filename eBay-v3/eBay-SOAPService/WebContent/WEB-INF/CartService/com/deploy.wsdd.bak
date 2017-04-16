@@ -1,0 +1,36 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from CartService WSDL service -->
+
+  <service name="Cart" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://com"/>
+      <parameter name="wsdlServiceElement" value="CartService"/>
+      <parameter name="schemaQualified" value="http://com"/>
+      <parameter name="wsdlServicePort" value="Cart"/>
+      <parameter name="className" value="com.CartSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Cart"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="checkout" qname="operNS:checkout" xmlns:operNS="http://com" returnQName="retNS:checkoutReturn" xmlns:retNS="http://com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:itemsL" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getCartItems" qname="operNS:getCartItems" xmlns:operNS="http://com" returnQName="retNS:getCartItemsReturn" xmlns:retNS="http://com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="removeCartItem" qname="operNS:removeCartItem" xmlns:operNS="http://com" returnQName="retNS:removeCartItemReturn" xmlns:retNS="http://com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:cartId" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="removeCartItem getCartItems checkout"/>
+
+  </service>
+</deployment>

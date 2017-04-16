@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://com" xmlns:intf="http://com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getPurchasedProducts">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPurchasedProductsResponse">
+    <complexType>
+     <sequence>
+      <element name="getPurchasedProductsReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="sellProduct">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+      <element name="itemName" type="xsd:string"/>
+      <element name="itemDesc" type="xsd:string"/>
+      <element name="itemPrice" type="xsd:string"/>
+      <element name="itemQuantity" type="xsd:int"/>
+      <element name="itemImg" type="xsd:string"/>
+      <element name="bid" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="sellProductResponse">
+    <complexType>
+     <sequence>
+      <element name="sellProductReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSoldProducts">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSoldProductsResponse">
+    <complexType>
+     <sequence>
+      <element name="getSoldProductsReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getSoldProductsResponse">
+
+      <wsdl:part element="impl:getSoldProductsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPurchasedProductsResponse">
+
+      <wsdl:part element="impl:getPurchasedProductsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sellProductResponse">
+
+      <wsdl:part element="impl:sellProductResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPurchasedProductsRequest">
+
+      <wsdl:part element="impl:getPurchasedProducts" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSoldProductsRequest">
+
+      <wsdl:part element="impl:getSoldProducts" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sellProductRequest">
+
+      <wsdl:part element="impl:sellProduct" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Sell">
+
+      <wsdl:operation name="getPurchasedProducts">
+
+         <wsdl:input message="impl:getPurchasedProductsRequest" name="getPurchasedProductsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getPurchasedProductsResponse" name="getPurchasedProductsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sellProduct">
+
+         <wsdl:input message="impl:sellProductRequest" name="sellProductRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:sellProductResponse" name="sellProductResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSoldProducts">
+
+         <wsdl:input message="impl:getSoldProductsRequest" name="getSoldProductsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getSoldProductsResponse" name="getSoldProductsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="SellSoapBinding" type="impl:Sell">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getPurchasedProducts">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPurchasedProductsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPurchasedProductsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sellProduct">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="sellProductRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="sellProductResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSoldProducts">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSoldProductsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSoldProductsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="SellService">
+
+      <wsdl:port binding="impl:SellSoapBinding" name="Sell">
+
+         <wsdlsoap:address location="http://localhost:8080/eBay/services/Sell"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

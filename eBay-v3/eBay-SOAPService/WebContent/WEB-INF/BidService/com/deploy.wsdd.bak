@@ -1,0 +1,35 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from BidService WSDL service -->
+
+  <service name="Bid" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://com"/>
+      <parameter name="wsdlServiceElement" value="BidService"/>
+      <parameter name="schemaQualified" value="http://com"/>
+      <parameter name="wsdlServicePort" value="Bid"/>
+      <parameter name="className" value="com.BidSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Bid"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="makeBid" qname="operNS:makeBid" xmlns:operNS="http://com" returnQName="retNS:makeBidReturn" xmlns:retNS="http://com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:itemid" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:amount" xmlns:pns="http://com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="currentHighest" qname="operNS:currentHighest" xmlns:operNS="http://com" returnQName="retNS:currentHighestReturn" xmlns:retNS="http://com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="bidWinners" qname="operNS:bidWinners" xmlns:operNS="http://com" returnQName="retNS:bidWinnersReturn" xmlns:retNS="http://com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="currentHighest bidWinners makeBid"/>
+
+  </service>
+</deployment>

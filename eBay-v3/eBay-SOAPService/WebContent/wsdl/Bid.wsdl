@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://com" xmlns:intf="http://com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="makeBid">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+      <element name="itemid" type="xsd:string"/>
+      <element name="amount" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="makeBidResponse">
+    <complexType>
+     <sequence>
+      <element name="makeBidReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="currentHighest">
+    <complexType/>
+   </element>
+   <element name="currentHighestResponse">
+    <complexType>
+     <sequence>
+      <element name="currentHighestReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="bidWinners">
+    <complexType/>
+   </element>
+   <element name="bidWinnersResponse">
+    <complexType>
+     <sequence>
+      <element name="bidWinnersReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="currentHighestRequest">
+
+      <wsdl:part element="impl:currentHighest" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="makeBidRequest">
+
+      <wsdl:part element="impl:makeBid" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="currentHighestResponse">
+
+      <wsdl:part element="impl:currentHighestResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="makeBidResponse">
+
+      <wsdl:part element="impl:makeBidResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="bidWinnersRequest">
+
+      <wsdl:part element="impl:bidWinners" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="bidWinnersResponse">
+
+      <wsdl:part element="impl:bidWinnersResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Bid">
+
+      <wsdl:operation name="makeBid">
+
+         <wsdl:input message="impl:makeBidRequest" name="makeBidRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:makeBidResponse" name="makeBidResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="currentHighest">
+
+         <wsdl:input message="impl:currentHighestRequest" name="currentHighestRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:currentHighestResponse" name="currentHighestResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="bidWinners">
+
+         <wsdl:input message="impl:bidWinnersRequest" name="bidWinnersRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:bidWinnersResponse" name="bidWinnersResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="BidSoapBinding" type="impl:Bid">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="makeBid">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="makeBidRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="makeBidResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="currentHighest">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="currentHighestRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="currentHighestResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="bidWinners">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="bidWinnersRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="bidWinnersResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="BidService">
+
+      <wsdl:port binding="impl:BidSoapBinding" name="Bid">
+
+         <wsdlsoap:address location="http://localhost:8080/eBay/services/Bid"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

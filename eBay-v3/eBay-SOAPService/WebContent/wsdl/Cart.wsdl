@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://com" xmlns:intf="http://com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="checkout">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+      <element name="itemsL" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="checkoutResponse">
+    <complexType>
+     <sequence>
+      <element name="checkoutReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getCartItems">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getCartItemsResponse">
+    <complexType>
+     <sequence>
+      <element name="getCartItemsReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeCartItem">
+    <complexType>
+     <sequence>
+      <element name="cartId" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeCartItemResponse">
+    <complexType>
+     <sequence>
+      <element name="removeCartItemReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getCartItemsRequest">
+
+      <wsdl:part element="impl:getCartItems" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeCartItemRequest">
+
+      <wsdl:part element="impl:removeCartItem" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="checkoutRequest">
+
+      <wsdl:part element="impl:checkout" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeCartItemResponse">
+
+      <wsdl:part element="impl:removeCartItemResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCartItemsResponse">
+
+      <wsdl:part element="impl:getCartItemsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="checkoutResponse">
+
+      <wsdl:part element="impl:checkoutResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Cart">
+
+      <wsdl:operation name="checkout">
+
+         <wsdl:input message="impl:checkoutRequest" name="checkoutRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:checkoutResponse" name="checkoutResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCartItems">
+
+         <wsdl:input message="impl:getCartItemsRequest" name="getCartItemsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getCartItemsResponse" name="getCartItemsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeCartItem">
+
+         <wsdl:input message="impl:removeCartItemRequest" name="removeCartItemRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:removeCartItemResponse" name="removeCartItemResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="CartSoapBinding" type="impl:Cart">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="checkout">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="checkoutRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="checkoutResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCartItems">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCartItemsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCartItemsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeCartItem">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeCartItemRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeCartItemResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="CartService">
+
+      <wsdl:port binding="impl:CartSoapBinding" name="Cart">
+
+         <wsdlsoap:address location="http://localhost:8080/eBay/services/Cart"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

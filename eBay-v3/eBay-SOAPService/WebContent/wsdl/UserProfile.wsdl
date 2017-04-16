@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://com" xmlns:intf="http://com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="updateProfile">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+      <element name="bday" type="xsd:string"/>
+      <element name="phone" type="xsd:string"/>
+      <element name="address" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="updateProfileResponse">
+    <complexType>
+     <sequence>
+      <element name="updateProfileReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="updateProfileResponse">
+
+      <wsdl:part element="impl:updateProfileResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateProfileRequest">
+
+      <wsdl:part element="impl:updateProfile" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="UserProfile">
+
+      <wsdl:operation name="updateProfile">
+
+         <wsdl:input message="impl:updateProfileRequest" name="updateProfileRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:updateProfileResponse" name="updateProfileResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="UserProfileSoapBinding" type="impl:UserProfile">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="updateProfile">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateProfileRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateProfileResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="UserProfileService">
+
+      <wsdl:port binding="impl:UserProfileSoapBinding" name="UserProfile">
+
+         <wsdlsoap:address location="http://localhost:8080/eBay/services/UserProfile"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
