@@ -6,7 +6,6 @@ EbayApp.controller('PaymentController' ,function($scope, $http) {
 	$scope.valid_card = true;
 
 	$scope.validateCard = function($timeout, $location) {
-		console.log($scope.cvv);
 			$http({
 				method : "POST",
 				url : '/validateCard',
@@ -16,14 +15,10 @@ EbayApp.controller('PaymentController' ,function($scope, $http) {
 					"cvv" : $scope.cvv
 				}
 			}).success(function(data) {
-				console.log(data.statusCode);
-				// checking the response data for statusCode
 				if (data.statusCode === 401) {
-					console.log("error loading cart");
 					$scope.invalid_card = false;
 					$scope.valid_card = true;
 				} else {
-					console.log("payment successful");
 					$scope.invalid_card = true;
 					$scope.valid_card = false;
 					var delay = 1000; //Your delay in milliseconds
@@ -32,7 +27,5 @@ EbayApp.controller('PaymentController' ,function($scope, $http) {
 			}).error(function(error) {
 				$scope.unknown_error = true;
 			});
-
 	};
-
 });

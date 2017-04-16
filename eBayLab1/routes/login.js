@@ -9,7 +9,6 @@ var login = function(req, res) {
 		if (!err) {
 			res.end(result);
 		} else {
-			console.log(err);
 			res.end('An error occured');
 		}
 	});
@@ -22,7 +21,6 @@ var afterLogin = function(req, res) {
 	var getUser = "select * from user_login where username='"
 			+ req.param("username") + "';";
 
-	console.log("Query is:" + getUser);
 	mysql.fetchData(function(err, results) {
 		if (err) {
 			throw err;
@@ -34,16 +32,13 @@ var afterLogin = function(req, res) {
 						json_responses = {
 							"lastlogin" : results[0].last_login
 						};
-						console.log(json_responses);
 						req.session.lastlogin = String(results[0].last_login);
-						console.log("valid Login");
 						res.send(json_responses);
 					} else {
 						json_responses = {
 							'statusCode' : 401
 						};
 						logger.info(req.param("username")+' invalid log in attempt');
-						console.log("invalid login");
 						res.send(json_responses);
 					}
 			}
