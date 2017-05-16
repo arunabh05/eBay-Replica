@@ -1,6 +1,3 @@
-/**
- * New node file
- */
 var EbayApp = angular.module('EbayApp', []);
 
 EbayApp.controller('loginRegisterController', function($scope, $http) {
@@ -32,7 +29,6 @@ EbayApp.controller('loginRegisterController', function($scope, $http) {
 		$scope.invalid_login = true;
 		var userId = $scope.userId;
 		var pass = $scope.password;
-
 		if (userId.indexOf('=') !== -1 || userId.indexOf(';') !== -1
 				|| pass.indexOf('=') !== -1 || pass.indexOf(';') !== -1) {
 			$scope.invalid_login = false;
@@ -55,7 +51,6 @@ EbayApp.controller('loginRegisterController', function($scope, $http) {
 		}).success(function(data) {
 			if (data.statusCode == 401) {
 				$scope.invalid_register = true;
-
 			} else {
 				window.location.assign("/login");
 				$scope.invalid_login = true;
@@ -66,23 +61,19 @@ EbayApp.controller('loginRegisterController', function($scope, $http) {
 	};
 
 	$scope.validateRegister = function() {
-
 		$scope.invalid_register = true;
 		$scope.email_unmatch = true;
-
 		var fname = $scope.fname;
 		var lname = $scope.lname;
 		var username2 = $scope.username2;
 		var email = $scope.email;
 		var remail = $scope.remail;
 		var pass2 = $scope.password2;
-
 		if (remail !== email) {
 			$scope.email_unmatch = false;
 		} else {
-			if (fname.indexOf('=') !== -1 || lname.indexOf('=') !== -1
-					|| username2.indexOf('=') !== -1
-					|| email.indexOf('=') !== -1 || pass2.indexOf(';') !== -1) {
+			if (fname.indexOf('=') !== -1 || lname.indexOf('=') !== -1|| username2.indexOf('=') !== -1||
+			    	email.indexOf('=') !== -1 || pass2.indexOf(';') !== -1) {
 				$scope.invalid_register = false;
 			} else {
 				$scope.registerUser(fname, lname, username2, email, pass2);
