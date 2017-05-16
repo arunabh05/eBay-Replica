@@ -4,8 +4,8 @@ EbayApp.controller('HomeController', function($scope, $http) {
 	$scope.item_added = true;
 	$scope.bid_added = true;
 	var a = '<%= username %>';
-
 	var items;
+	
 	if (!items) {
 		$http({
 			method : "GET",
@@ -27,7 +27,6 @@ EbayApp.controller('HomeController', function($scope, $http) {
 	}
 
 	$scope.makeBid = function(amount, itemid, quantity, price) {
-
 		$http({
 			method : "POST",
 			url : '/makeBid',
@@ -64,7 +63,6 @@ EbayApp.controller('HomeController', function($scope, $http) {
 				console.log("error loading cart");
 			} else {
 				$scope.quantity = "";
-				console.log("items added to cart");
 				$scope.unknown_error = true;
 				$scope.item_added = false;
 			}
